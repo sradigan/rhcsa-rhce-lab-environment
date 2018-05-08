@@ -46,7 +46,7 @@
 
 - name: configure freeipa service
   shell: "ipa-server-install \
-    --setup-dns --domain={{ domain_name }} \
+    --setup-dns --domain={{ domain_name }} --allow-zone-overlap \
     --realm={{ ipa_realm }} --ds-password={{ ldap_directory_manager_password }} \
     --admin-password={{ ipa_admin_password }} --forwarder={{ ansible_dns.nameservers[0] }} \
     --unattended"

@@ -25,8 +25,12 @@
       file: path=/etc/ansible/facts.d/info.fact state=touch
       when: factdir.changed or factfile.stat.exists == False
 
-  roles:
-    - { role: common, when: ansible_local.info.ansible is not defined }
+  tasks:
+  - include_role:
+      name: common
+    when: (ansible_local is not defined) or
+          (info is not in ansible_local) or
+          (ansible is not in ansible_local.info)
 
 # only for managed servers when: ansible_local.info.ansible.managed == "true"
 - hosts: all
